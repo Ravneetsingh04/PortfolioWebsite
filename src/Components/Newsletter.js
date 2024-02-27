@@ -1,7 +1,7 @@
 import { Alert, Col, Row } from "react-bootstrap";
 import { useState,useEffect } from "react";
 
-export const Newsletter = ({  status, message,onValidated }) => {
+export const Newsletter = ({  status, message, onValidated }) => {
   const [email, setEmail] = useState("");
   useEffect(()=>{
     if(status==="success")

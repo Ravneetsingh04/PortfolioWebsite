@@ -3,35 +3,37 @@ const router = express.Router();
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 
-// server used to send send emails
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/", router);
-app.listen(3000, () => console.log("Server Running"));
-
 
 const contactEmail = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: "ravneet4365@gmail.com",
-    pass: "Rs@1Rs@1"
+    pass: "grui anfi ynwv qake"
   },
 });
 
 contactEmail.verify((error) => {
   if (error) {
-    console.log(error);
+    console.error("Error connecting to email service:", error);
   } else {
-    console.log("Ready to Send");
+    console.log("Email service ready");
   }
 });
 
 router.post("/contact", (req, res) => {
-  const name = req.body.firstName + req.body.lastName;
-  const email = req.body.email;
-  const message = req.body.message;
-  const phone = req.body.phone;
+  const { firstName, lastName, email, message, phone } = req.body;
+
+  // Validation
+  if (!firstName || !lastName || !email || !message || !phone) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  const name = `${firstName} ${lastName}`;
+
   const mail = {
     from: name,
     to: "ravneet4365@gmail.com",
@@ -41,11 +43,17 @@ router.post("/contact", (req, res) => {
            <p>Phone: ${phone}</p>
            <p>Message: ${message}</p>`,
   };
+
   contactEmail.sendMail(mail, (error) => {
     if (error) {
-      res.json(error);
+      console.error("Error sending email:", error);
+      return res.status(500).json({ message: "Error sending email" });
     } else {
-      res.json({ code: 200, status: "Message Sent" });
+      console.log("Message Sent");
+      return res.status(200).json({ message: "Email sent successfully" });
     }
   });
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server Running on port ${PORT}`));
