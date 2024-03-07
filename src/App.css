@@ -542,7 +542,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon{
   background: #ffffff;
   border-radius: 55px;
   color: #121212;
-  padding: 85px 125px;
+  padding: 85px 40px;
   margin-bottom:80px;
   margin-top: -122px;
 }
@@ -592,7 +592,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon{
 }
 .new-email-bx button{
   background: linear-gradient(90.21deg, #AA367C -5.91%, #4A2FBD 111.58%);
-  padding: 20px 65px;
+  padding: 15px 35px;
   color: #fff;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -641,5 +641,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon{
   }
   to {
     transform: rotate(360deg);
+  }
+}
+@media (max-width: 768px) {
+  .newsletter-bx {
+    padding: 50px 20px; /* Adjusted padding for smaller screens */
+  }
+
+  .new-email-bx button {
+    padding: 10px 25px; /* Adjusted padding for smaller screens */
   }
 }
